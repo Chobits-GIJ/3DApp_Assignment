@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formula One Racing</title>
+    <meta
+      name="description"
+      content="A Formula One themed Bootstrap and Three.js web 3D application with three interactive glTF scenes."
+    >
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header class="container-fluid site-title">
+      <div class="row align-items-center">
+        <div class="col-12">
+          <div class="logo brand-line" aria-label="Formula One Racing brand">
+            <span class="brand-mark">F1</span>
+            <div class="brand-copy">
+              <div class="brand-text">
+                <h1 class="m-0">Formula</h1>
+                <h2 class="m-0">One</h2>
+                <h3 class="m-0">Cars</h3>
+              </div>
+              <p class="brand-strapline m-0">Scene recreations of classic traditional racing cars</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="navbar navbar-expand-sm app-navbar navbar_f1 navbar-dark py-0" aria-label="Main navigation">
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-controls="mainNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <div class="nav-shell d-flex flex-wrap align-items-center w-100">
+            <div class="scene-switcher" id="modelList" aria-label="Model selection"></div>
+            <div class="navbar-nav nav-strip d-flex flex-wrap align-items-center">
+              <button class="nav-tab nav-link-button is-active" type="button" data-section="studio">Home</button>
+              <button class="nav-tab nav-link-button" type="button" data-section="about">About</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container-fluid main_contents py-3 px-3 px-xl-4">
+      <section class="page-section is-visible" id="studio" data-page>
+        <div class="app-workbench mx-auto">
+          <section class="col-12 col-lg-8 col-xxl-9" aria-label="3D model viewer">
+            <div class="card model-view-card shadow-sm">
+              <div class="card-header model-view-header">
+                <div>
+                  <h2 class="h4 mb-1" id="objectTitle">Loading model</h2>
+                  <p class="viewer-hint m-0">Drag to orbit, scroll to zoom.</p>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <div class="canvas-wrap">
+                  <canvas id="sceneCanvas" width="1280" height="820" aria-label="Interactive Three.js 3D scene"></canvas>
+                </div>
+              </div>
+
+              <div class="card-footer bg-white scene-footer">
+                <div class="lighting-shell">
+                  <p class="scene-summary mb-0" id="objectDescription">Scene lighting effect control</p>
+                  <div class="lighting-controls" id="lightingControls" role="group" aria-label="Scene lighting controls">
+                    <button class="lighting-button btn btn-outline-secondary" type="button" data-light-preset="studio">Studio</button>
+                    <button class="lighting-button btn btn-outline-secondary is-active" type="button" data-light-preset="focus">Focus</button>
+                    <button class="lighting-button btn btn-outline-secondary" type="button" data-light-preset="night">Night</button>
+                  </div>
+                  <div class="lighting-slider-row">
+                    <label class="lighting-label" for="brightnessRange">Brightness</label>
+                    <input class="brightness-slider" id="brightnessRange" type="range" min="0.55" max="1.45" step="0.05" value="0.90">
+                    <span class="lighting-value" id="brightnessValue">0.90x</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <aside class="col-12 col-lg-4 col-xxl-3">
+            <div class="card side-card shadow-sm">
+              <div class="card-body">
+                <h3 class="control-heading">Animation clips</h3>
+                <div class="clip-list mb-3" id="animationClipList" role="group" aria-label="Animation clip controls"></div>
+
+                <h3 class="control-heading">Playback</h3>
+                <div class="control-stack" role="group" aria-label="Animation playback controls">
+                  <button class="control-button btn btn-primary btn-sm fw-semibold" type="button" id="animateToggle" aria-pressed="true">Pause animation</button>
+                  <button class="control-button btn btn-outline-secondary btn-sm fw-semibold" type="button" id="stopAnimation">Stop animation</button>
+                </div>
+
+                <hr>
+
+                <h3 class="control-heading">Viewer tools</h3>
+                <div class="control-stack" role="group" aria-label="Viewer controls">
+                  <button class="control-button btn btn-outline-secondary btn-sm fw-semibold" type="button" id="wireToggle" aria-pressed="false">Wireframe</button>
+                  <button class="control-button btn btn-outline-secondary btn-sm fw-semibold" type="button" id="cameraSpinToggle" aria-pressed="false">Auto camera</button>
+                  <button class="control-button btn btn-outline-secondary btn-sm fw-semibold" type="button" id="resetView">Reset view</button>
+                  <button class="control-button btn btn-outline-secondary btn-sm fw-semibold" type="button" id="gridToggle" aria-pressed="false">Show grid</button>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="page-section" id="about" data-page>
+        <div class="about-shell mx-auto">
+          <div class="card shadow-sm">
+            <div class="card-header model-view-header">
+              <h2 class="h4 mb-0">About the 3D App</h2>
+            </div>
+            <div class="card-body p-4">
+              <p class="about-lead text-secondary">
+                This Formula One themed Web 3D application was built as an original interface around three local glTF
+                scenes. It combines HTML5, CSS3, Bootstrap and Three.js to present model loading, scene switching,
+                animation playback, lighting control, camera tools and synchronised audio cues in one responsive app.
+              </p>
+
+              <div class="about-evidence-strip" aria-label="Project technology summary">
+                <span>HTML5</span>
+                <span>CSS3</span>
+                <span>Bootstrap</span>
+                <span>Three.js</span>
+                <span>glTF</span>
+                <span>JavaScript</span>
+              </div>
+
+              <h3 class="h5 mt-4">Prototype References and Visual Development</h3>
+              <p class="small text-secondary">
+                To evidence the work put into the web page, I added visual reference images and explanatory text rather
+                than only presenting the finished 3D viewer. These two Formula racing prototypes were used as visual
+                research for the app theme. They helped define the low racing silhouette, exposed wheels, rear wing,
+                cockpit position, sponsor-style colour blocking and track-focused presentation used across the interface
+                and the three 3D scenes.
+              </p>
+              <div class="row g-3 prototype-gallery">
+                <article class="col-md-6">
+                  <figure class="prototype-card">
+                    <img
+                      src="assets/images/1.png"
+                      alt="Red and white vintage Formula One prototype reference"
+                      onerror="this.closest('.prototype-card').classList.add('is-missing-image')"
+                    >
+                    <figcaption>
+                      <strong>Red and white Formula reference</strong>
+                      This reference was used to study the classic long nose, wide tyres, driver cockpit, rear wing and
+                      red/white racing contrast. Those visual cues influenced the F1 logo treatment, the red active state
+                      used in the navigation and buttons, and the polished display style of the showcase scene.
+                    </figcaption>
+                  </figure>
+                </article>
+
+                <article class="col-md-6">
+                  <figure class="prototype-card">
+                    <img
+                      src="assets/images/2.png"
+                      alt="Blue six-wheel Formula car prototype reference"
+                      onerror="this.closest('.prototype-card').classList.add('is-missing-image')"
+                    >
+                    <figcaption>
+                      <strong>Blue six-wheel racing reference</strong>
+                      This reference shows a more experimental racing shape with six wheels, a compact cockpit, large rear
+                      tyres and a deep blue livery. It supported the decision to make the project more than a static car
+                      viewer by including testing, pit-work and inspection contexts.
+                    </figcaption>
+                  </figure>
+                </article>
+              </div>
+
+              <div class="detail-card border rounded p-3 mt-3">
+                <h3 class="h5">How the references affected the final web page</h3>
+                <ul class="small text-secondary mb-0 testing-list">
+                  <li>The Formula dashboard style was chosen to match the racing subject rather than a generic gallery.</li>
+                  <li>The red highlight colour was taken from the red and white prototype and applied to active controls.</li>
+                  <li>The darker blue/grey UI background was chosen to echo the track and engineering mood of the references.</li>
+                  <li>The model viewer prioritises a low front-facing camera angle so the car shape reads clearly.</li>
+                  <li>The three scenes show different parts of a racing workflow: test rig, pit stop and showcase inspection.</li>
+                  <li>The About page includes the references, model facts and testing notes to make the development work visible.</li>
+                </ul>
+              </div>
+
+              <h3 class="h5 mt-4">Model Evidence</h3>
+              <div class="row g-3">
+                <article class="col-md-4">
+                  <div class="detail-card border rounded p-3 h-100">
+                    <h4 class="h6">Formula Test Rig Scene</h4>
+                    <p class="small text-secondary mb-2">
+                      Loaded from <code>assets/models/car_treadmill.gltf</code>. This scene presents a Formula car on a
+                      test rig and uses the embedded <code>animationrun</code> clip for the vehicle test sequence.
+                    </p>
+                    <ul class="small mb-0">
+                      <li>149 meshes</li>
+                      <li>3 embedded PNG texture maps</li>
+                      <li>Animation: Vehicle test run</li>
+                    </ul>
+                  </div>
+                </article>
+
+                <article class="col-md-4">
+                  <div class="detail-card border rounded p-3 h-100">
+                    <h4 class="h6">Formula Pit Stop Scene</h4>
+                    <p class="small text-secondary mb-2">
+                      Loaded from <code>assets/models/pitroom_tyre_change.gltf</code>. It focuses on a service area and
+                      tyre-change animation, supporting the racing pit-wall story of the app.
+                    </p>
+                    <ul class="small mb-0">
+                      <li>133 meshes</li>
+                      <li>2 embedded PNG texture maps</li>
+                      <li>Animation: Pit stop tyre change</li>
+                    </ul>
+                  </div>
+                </article>
+
+                <article class="col-md-4">
+                  <div class="detail-card border rounded p-3 h-100">
+                    <h4 class="h6">Formula Showcase Scene</h4>
+                    <p class="small text-secondary mb-2">
+                      Loaded from <code>assets/models/car_showcase.gltf</code>. This display scene contains separate
+                      steering and disassembly clips, giving the user more than one animation choice.
+                    </p>
+                    <ul class="small mb-0">
+                      <li>201 meshes</li>
+                      <li>5 embedded PNG texture maps</li>
+                      <li>Animations: Steering turn, car disassembly</li>
+                    </ul>
+                  </div>
+                </article>
+              </div>
+
+              <h3 class="h5 mt-4">Implementation and Design Decisions</h3>
+              <div class="row g-3">
+                <article class="col-md-6">
+                  <div class="detail-card border rounded p-3 h-100">
+                    <h3 class="h5">Application Structure</h3>
+                    <p class="small text-secondary mb-0">
+                      The page is separated into a brand header, navigation, 3D viewer, lighting controls and a right-side
+                      control panel. The layout uses Bootstrap grid behaviour plus custom CSS so the app feels like a
+                      Formula One dashboard instead of the default lab page. Prototype reference images and explanatory
+                      text were added to the About page to evidence the visual development process.
+                    </p>
+                  </div>
+                </article>
+
+                <article class="col-md-6">
+                  <div class="detail-card border rounded p-3 h-100">
+                    <h3 class="h5">Three.js Workflow</h3>
+                    <p class="small text-secondary mb-0">
+                      JavaScript loads each glTF scene with <code>GLTFLoader</code>, normalises the scene size, applies
+                      shadows and uses a separate <code>AnimationMixer</code> for each model so clips can be played,
+                      paused and stopped independently.
+                    </p>
+                  </div>
+                </article>
+
+                <article class="col-md-6">
+                  <div class="detail-card border rounded p-3 h-100">
+                    <h3 class="h5">Interaction Features</h3>
+                    <ul class="small text-secondary mb-0">
+                      <li>Scene tabs switch between three 3D models.</li>
+                      <li>Animation buttons trigger glTF clips through JavaScript.</li>
+                      <li>Wireframe mode supports model inspection.</li>
+                      <li>Orbit controls allow drag rotation and scroll zoom.</li>
+                      <li>Auto camera and reset view provide guided viewing.</li>
+                    </ul>
+                  </div>
+                </article>
+
+                <article class="col-md-6">
+                  <div class="detail-card border rounded p-3 h-100">
+                    <h3 class="h5">Lighting and Media</h3>
+                    <p class="small text-secondary mb-0">
+                      The app includes Studio, Focus and Night lighting presets, with Focus used as the default browsing
+                      mode. The presets change light intensity, colour, fog, background and exposure. Local audio files
+                      add pit wrench, engine and tyre friction cues to support the animations.
+                    </p>
+                  </div>
+                </article>
+              </div>
+
+              <h3 class="h5 mt-4">Testing and Refinement</h3>
+              <div class="detail-card border rounded p-3">
+                <p class="small text-secondary">
+                  Testing was used to improve both the 3D experience and the responsive page layout. The following changes
+                  were made after checking the app in a local browser:
+                </p>
+                <ul class="small text-secondary mb-0 testing-list">
+                  <li>JavaScript syntax was checked with Node before delivery.</li>
+                  <li>Model paths were kept local so the glTF scenes load from the submission folder.</li>
+                  <li>The lighting presets were strengthened because the original scene light changes were too subtle.</li>
+                  <li>The default lighting mode was changed to Focus to make the models easier to view immediately.</li>
+                  <li>The footer black bar issue was fixed by improving the page height and footer layout.</li>
+                  <li>The desktop layout was adjusted so the standard screen view does not require page-level scrolling.</li>
+                  <li>The canvas was given a minimum visible height so the lighting controls cannot collapse the 3D view.</li>
+                  <li>The UI typography, F1 logo styling and button hierarchy were refined for a more polished app identity.</li>
+                </ul>
+              </div>
+
+              <h3 class="h5 mt-4">Blockbench and Blender Workflow</h3>
+              <div class="row g-3">
+                <article class="col-md-6">
+                  <div class="detail-card border rounded p-3 h-100">
+                    <h3 class="h5">Blockbench Modelling</h3>
+                    <p class="small text-secondary mb-0">
+                      The main modelling work was completed in Blockbench. I used it to build the Formula car forms,
+                      test-rig elements, pit-stop objects and showcase parts with a block-based workflow. The prototype
+                      images guided the proportions, wheel placement, cockpit shape, rear wing structure and racing colour
+                      decisions before the scenes were exported as glTF files for the web app.
+                    </p>
+                  </div>
+                </article>
+
+                <article class="col-md-6">
+                  <div class="detail-card border rounded p-3 h-100">
+                    <h3 class="h5">Blender Scene Checking</h3>
+                    <ul class="small text-secondary mb-0">
+                      <li>The exported glTF scenes were opened in Blender for visual checking.</li>
+                      <li>Scene scale, object placement and camera readability were reviewed before web integration.</li>
+                      <li>Materials and texture appearance were checked so the models remained clear under app lighting.</li>
+                      <li>Animation clips were reviewed before being connected to JavaScript buttons in Three.js.</li>
+                      <li>The checked glTF files were then placed in <code>assets/models/</code> and loaded with <code>GLTFLoader</code>.</li>
+                    </ul>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="container-fluid footer">
+      <div class="row">
+        <div class="col-12 text-center copyright">
+          <small>Formula One Cars | Scene recreations of classic traditional racing cars</small>
+        </div>
+      </div>
+    </footer>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./three/build/three.module.js",
+          "three/addons/": "./three/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="js/app.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
