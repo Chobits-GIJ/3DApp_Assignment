@@ -262,7 +262,7 @@ input:focus-visible {
 .app-workbench {
   flex: 1 0 auto;
   width: 100%;
-  max-width: 1440px;
+  max-width: none;
   min-height: auto;
 }
 
@@ -639,6 +639,31 @@ input:focus-visible {
   word-break: break-word;
 }
 
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-height: 42px;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid rgba(216, 58, 58, 0.28);
+  border-radius: 0.35rem;
+  background: #fff;
+  color: var(--hot-dark);
+  font-family: var(--display-font);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.35;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.project-link:hover,
+.project-link:focus {
+  border-color: var(--hot);
+  color: var(--hot);
+  box-shadow: 0 10px 22px rgba(216, 58, 58, 0.1);
+}
+
 .testing-list {
   columns: 2;
   column-gap: 2rem;
@@ -714,10 +739,10 @@ input:focus-visible {
 
   .app-workbench {
     display: grid !important;
-    grid-template-columns: minmax(0, 1fr) 220px;
-    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr) clamp(220px, 15vw, 300px);
+    gap: clamp(0.6rem, 1vw, 1.2rem);
     height: 100%;
-    margin: 0 auto !important;
+    margin: 0 !important;
   }
 
   .app-workbench > [class*="col-"] {
@@ -830,14 +855,14 @@ input:focus-visible {
 
 @media (min-width: 1400px) {
   .app-workbench {
-    grid-template-columns: minmax(0, 1fr) 220px !important;
-    gap: 0.6rem !important;
+    grid-template-columns: minmax(0, 1fr) clamp(240px, 14vw, 320px) !important;
+    gap: clamp(0.7rem, 1vw, 1.25rem) !important;
   }
 }
 
 @media (min-width: 992px) and (max-width: 1399.98px) {
   .app-workbench {
-    grid-template-columns: minmax(0, 1fr) 210px !important;
+    grid-template-columns: minmax(0, 1fr) clamp(210px, 20vw, 260px) !important;
     gap: 0.6rem !important;
   }
 }

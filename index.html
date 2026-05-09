@@ -141,6 +141,67 @@
                 <span>JavaScript</span>
               </div>
 
+              <div class="detail-card border rounded p-3 mt-3">
+                <h3 class="h5">GitHub Repository</h3>
+                <p class="small text-secondary mb-2">
+                  The original project files, web page source code and local 3D assets are available in the GitHub
+                  repository below.
+                </p>
+                <a
+                  class="project-link"
+                  href="https://github.com/Chobits-GIJ/3DApp_Assignment"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  https://github.com/Chobits-GIJ/3DApp_Assignment
+                </a>
+              </div>
+
+              <h3 class="h5 mt-4">Project Rationale</h3>
+              <div class="row g-3">
+                <article class="col-md-6">
+                  <div class="detail-card border rounded p-3 h-100">
+                    <h3 class="h5">Why I Chose This Racing Car</h3>
+                    <p class="small text-secondary mb-0">
+                      I chose a Formula-style racing car because its shape is immediately recognisable in 3D: the long
+                      low body, exposed wheels, front nose, cockpit and rear wing all read clearly from different camera
+                      angles. It also gave the project a strong reason to include more than a static model. A racing car
+                      naturally supports a test rig scene, pit-stop scene and showcase scene, so the final app could
+                      demonstrate animation, lighting changes, camera controls and sound effects through a coherent
+                      motorsport theme.
+                    </p>
+                  </div>
+                </article>
+
+                <article class="col-md-6">
+                  <div class="detail-card border rounded p-3 h-100">
+                    <h3 class="h5">Why I Used Blockbench</h3>
+                    <p class="small text-secondary mb-0">
+                      Blockbench was selected because its block-based modelling tools make it practical to build clean
+                      hard-surface objects with controlled proportions. For this project, that was useful for shaping the
+                      chassis, tyres, wings, pit equipment and display components without overcomplicating the modelling
+                      process. It also supports texture work, simple animation and glTF export, which made the transition
+                      from modelling to Three.js web integration more direct.
+                    </p>
+                  </div>
+                </article>
+
+                <article class="col-12">
+                  <div class="detail-card border rounded p-3 h-100">
+                    <h3 class="h5">Low-Poly Pixel Style</h3>
+                    <p class="small text-secondary mb-0">
+                      I deliberately used a low-poly, pixel-inspired visual style instead of trying to make the car fully
+                      photorealistic. This style matches the block-based modelling workflow in Blockbench and makes the
+                      shapes easier to read in a browser-based 3D viewer. The simplified geometry keeps the models lighter
+                      for real-time loading, while the clear edges, bold colours and stylised details give the project a
+                      consistent game-like identity. It also helps show the model construction more clearly, because the
+                      viewer can understand the wheels, cockpit, wings and pit equipment without relying on complex
+                      realistic materials.
+                    </p>
+                  </div>
+                </article>
+              </div>
+
               <h3 class="h5 mt-4">Prototype References and Visual Development</h3>
               <p class="small text-secondary">
                 To evidence the work put into the web page, I added visual reference images and explanatory text rather
@@ -293,34 +354,18 @@
                 </article>
               </div>
 
-              <h3 class="h5 mt-4">Testing and Refinement</h3>
-              <div class="detail-card border rounded p-3">
-                <p class="small text-secondary">
-                  Testing was used to improve both the 3D experience and the responsive page layout. The following changes
-                  were made after checking the app in a local browser:
-                </p>
-                <ul class="small text-secondary mb-0 testing-list">
-                  <li>JavaScript syntax was checked with Node before delivery.</li>
-                  <li>Model paths were kept local so the glTF scenes load from the submission folder.</li>
-                  <li>The lighting presets were strengthened because the original scene light changes were too subtle.</li>
-                  <li>The default lighting mode was changed to Focus to make the models easier to view immediately.</li>
-                  <li>The footer black bar issue was fixed by improving the page height and footer layout.</li>
-                  <li>The desktop layout was adjusted so the standard screen view does not require page-level scrolling.</li>
-                  <li>The canvas was given a minimum visible height so the lighting controls cannot collapse the 3D view.</li>
-                  <li>The UI typography, F1 logo styling and button hierarchy were refined for a more polished app identity.</li>
-                </ul>
-              </div>
-
               <h3 class="h5 mt-4">Blockbench and Blender Workflow</h3>
               <div class="row g-3">
                 <article class="col-md-6">
                   <div class="detail-card border rounded p-3 h-100">
                     <h3 class="h5">Blockbench Modelling</h3>
                     <p class="small text-secondary mb-0">
-                      The main modelling work was completed in Blockbench. I used it to build the Formula car forms,
-                      test-rig elements, pit-stop objects and showcase parts with a block-based workflow. The prototype
-                      images guided the proportions, wheel placement, cockpit shape, rear wing structure and racing colour
-                      decisions before the scenes were exported as glTF files for the web app.
+                      The main modelling work was completed in Blockbench because it gave me a fast, structured way to
+                      create readable Formula car forms while keeping the geometry suitable for a web 3D assignment. Its
+                      low-poly workflow also supported the pixel-style look of the final scenes. I used it to build the
+                      car body, wheels, cockpit, wing forms, test-rig elements, pit-stop objects and showcase parts. The
+                      prototype images guided the proportions, wheel placement, cockpit shape, rear wing structure and
+                      racing colour decisions before the scenes were exported as glTF files for the web app.
                     </p>
                   </div>
                 </article>
@@ -337,6 +382,24 @@
                     </ul>
                   </div>
                 </article>
+              </div>
+
+              <h3 class="h5 mt-4">Testing and Refinement</h3>
+              <div class="detail-card border rounded p-3">
+                <p class="small text-secondary">
+                  Testing was used to improve both the 3D experience and the responsive page layout. The following changes
+                  were made after checking the app in a local browser:
+                </p>
+                <ul class="small text-secondary mb-0 testing-list">
+                  <li>JavaScript was tested in the local browser to confirm that the models, buttons, animations and lighting controls worked correctly.</li>
+                  <li>Model paths were kept local so the glTF scenes load from the submission folder.</li>
+                  <li>The lighting presets were strengthened because the original scene light changes were too subtle.</li>
+                  <li>The default lighting mode was changed to Focus to make the models easier to view immediately.</li>
+                  <li>The footer black bar issue was fixed by improving the page height and footer layout.</li>
+                  <li>The desktop layout was adjusted so the standard screen view does not require page-level scrolling.</li>
+                  <li>The canvas was given a minimum visible height so the lighting controls cannot collapse the 3D view.</li>
+                  <li>The UI typography, F1 logo styling and button hierarchy were refined for a more polished app identity.</li>
+                </ul>
               </div>
             </div>
           </div>
