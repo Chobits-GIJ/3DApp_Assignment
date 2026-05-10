@@ -467,7 +467,6 @@ function renderModelList() {
     button.textContent = model.shortTitle;
     button.addEventListener("click", () => {
       showPage("studio");
-      playBackgroundMusic();
       selectModel(model.id);
     });
     return button;
