@@ -46,9 +46,17 @@
 
         <div class="collapse navbar-collapse" id="mainNavbar">
           <div class="nav-shell d-flex flex-wrap align-items-center w-100">
+            <div class="navbar-nav nav-strip nav-strip-left d-flex flex-wrap align-items-center">
+              <button class="nav-tab nav-link-button is-active" type="button" data-section="home">Home</button>
+            </div>
             <div class="scene-switcher" id="modelList" aria-label="Model selection"></div>
-            <div class="navbar-nav nav-strip d-flex flex-wrap align-items-center">
-              <button class="nav-tab nav-link-button is-active" type="button" data-section="studio">Home</button>
+            <div class="navbar-nav nav-strip nav-strip-right d-flex flex-wrap align-items-center">
+              <div class="music-panel nav-music-panel" aria-label="Background music controls">
+                <button class="music-button" type="button" id="musicToggle" aria-pressed="false">Play music</button>
+                <label class="music-label" for="musicVolume">Volume</label>
+                <input class="music-volume" id="musicVolume" type="range" min="0" max="1" step="0.05" value="0.20">
+                <span class="music-value" id="musicVolumeValue">20%</span>
+              </div>
               <button class="nav-tab nav-link-button" type="button" data-section="about">About</button>
             </div>
           </div>
@@ -57,7 +65,20 @@
     </nav>
 
     <main class="container-fluid main_contents py-3 px-3 px-xl-4">
-      <section class="page-section is-visible" id="studio" data-page>
+      <section class="page-section is-visible home-section" id="home" data-page>
+        <div class="home-stage">
+          <div class="home-content">
+            <h2>Formula One Cars</h2>
+            <p>
+              Click Start Experience to enter the first racing scene. Background music will play automatically after you
+              begin, and you can pause it or adjust the volume from the music controls beside About.
+            </p>
+            <button class="start-button" type="button" id="startExperience">Start Experience</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-section" id="studio" data-page>
         <div class="app-workbench mx-auto">
           <section class="col-12 col-lg-8 col-xxl-9" aria-label="3D model viewer">
             <div class="card model-view-card shadow-sm">
@@ -77,15 +98,17 @@
               <div class="card-footer bg-white scene-footer">
                 <div class="lighting-shell">
                   <p class="scene-summary mb-0" id="objectDescription">Scene lighting effect control</p>
-                  <div class="lighting-controls" id="lightingControls" role="group" aria-label="Scene lighting controls">
-                    <button class="lighting-button btn btn-outline-secondary" type="button" data-light-preset="studio">Studio</button>
-                    <button class="lighting-button btn btn-outline-secondary is-active" type="button" data-light-preset="focus">Focus</button>
-                    <button class="lighting-button btn btn-outline-secondary" type="button" data-light-preset="night">Night</button>
-                  </div>
-                  <div class="lighting-slider-row">
-                    <label class="lighting-label" for="brightnessRange">Brightness</label>
-                    <input class="brightness-slider" id="brightnessRange" type="range" min="0.55" max="1.45" step="0.05" value="0.90">
-                    <span class="lighting-value" id="brightnessValue">0.90x</span>
+                  <div class="lighting-panel">
+                    <div class="lighting-controls" id="lightingControls" role="group" aria-label="Scene lighting controls">
+                      <button class="lighting-button btn btn-outline-secondary" type="button" data-light-preset="studio">Studio</button>
+                      <button class="lighting-button btn btn-outline-secondary is-active" type="button" data-light-preset="focus">Focus</button>
+                      <button class="lighting-button btn btn-outline-secondary" type="button" data-light-preset="night">Night</button>
+                    </div>
+                    <div class="lighting-slider-row">
+                      <label class="lighting-label" for="brightnessRange">Brightness</label>
+                      <input class="brightness-slider" id="brightnessRange" type="range" min="0.55" max="1.45" step="0.05" value="0.90">
+                      <span class="lighting-value" id="brightnessValue">0.90x</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -109,7 +132,7 @@
                 <h3 class="control-heading">Viewer tools</h3>
                 <div class="control-stack" role="group" aria-label="Viewer controls">
                   <button class="control-button btn btn-outline-secondary btn-sm fw-semibold" type="button" id="wireToggle" aria-pressed="false">Wireframe</button>
-                  <button class="control-button btn btn-outline-secondary btn-sm fw-semibold" type="button" id="cameraSpinToggle" aria-pressed="false">Auto camera</button>
+                  <button class="control-button btn btn-outline-secondary btn-sm fw-semibold is-active" type="button" id="cameraSpinToggle" aria-pressed="true">Stop camera</button>
                   <button class="control-button btn btn-outline-secondary btn-sm fw-semibold" type="button" id="resetView">Reset view</button>
                   <button class="control-button btn btn-outline-secondary btn-sm fw-semibold" type="button" id="gridToggle" aria-pressed="false">Show grid</button>
                 </div>
@@ -239,6 +262,47 @@
                       This reference shows a more experimental racing shape with six wheels, a compact cockpit, large rear
                       tyres and a deep blue livery. It supported the decision to make the project more than a static car
                       viewer by including testing, pit-work and inspection contexts.
+                    </figcaption>
+                  </figure>
+                </article>
+              </div>
+
+              <h3 class="h5 mt-4">Scene Modelling Process</h3>
+              <p class="small text-secondary">
+                After the racing car prototype research, I also modelled two supporting motorsport spaces so the website
+                would feel like a complete race environment rather than a single object viewer. The pit room and testing
+                room represent two important stages around a race car: maintenance under pressure and controlled
+                performance checking.
+              </p>
+              <div class="row g-3 process-gallery">
+                <article class="col-md-6">
+                  <figure class="process-card">
+                    <img
+                      src="assets/images/pitroom.png"
+                      alt="Blockbench modelling process for the Formula pit room scene"
+                      onerror="this.closest('.process-card').classList.add('is-missing-image')"
+                    >
+                    <figcaption>
+                      <strong>Pit room scene modelling</strong>
+                      The pit room was created to recreate the service area of a racing circuit. I focused on the car
+                      position, tyre-change equipment and compact garage layout so the scene could support the tyre
+                      replacement animation and show the technical teamwork that happens beside the track.
+                    </figcaption>
+                  </figure>
+                </article>
+
+                <article class="col-md-6">
+                  <figure class="process-card">
+                    <img
+                      src="assets/images/fixroom.png"
+                      alt="Blockbench modelling process for the Formula test rig and fixing room scene"
+                      onerror="this.closest('.process-card').classList.add('is-missing-image')"
+                    >
+                    <figcaption>
+                      <strong>Fix room and test rig modelling</strong>
+                      The fix room was built as a controlled testing space for the Formula car. The model combines the
+                      vehicle, support frame and testing objects to suggest a workshop where engineers inspect movement,
+                      wheel behaviour and vehicle balance before the car returns to the track.
                     </figcaption>
                   </figure>
                 </article>
@@ -423,6 +487,7 @@
         }
       }
     </script>
+    <audio id="backgroundMusic" src="assets/audio/background.mp3" loop preload="auto"></audio>
     <script type="module" src="js/app.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
   </body>

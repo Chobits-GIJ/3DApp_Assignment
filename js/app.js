@@ -12,6 +12,11 @@ const brightnessValue = document.querySelector("#brightnessValue");
 const objectType = document.querySelector("#objectType");
 const objectTitle = document.querySelector("#objectTitle");
 const objectDescription = document.querySelector("#objectDescription");
+const startExperienceButton = document.querySelector("#startExperience");
+const backgroundMusic = document.querySelector("#backgroundMusic");
+const musicToggle = document.querySelector("#musicToggle");
+const musicVolume = document.querySelector("#musicVolume");
+const musicVolumeValue = document.querySelector("#musicVolumeValue");
 
 const modelCatalog = [
   {
@@ -22,7 +27,7 @@ const modelCatalog = [
     category: "glTF scene",
     subtitle: "Formula car motion test with animationrun",
     brief: "A Formula car test rig scene for viewing the car and its running animation.",
-    description: "This scene presents a Formula One style vehicle test rig. It is loaded as a complete glTF scene with Three.js GLTFLoader, preserving embedded textures and the authored animationrun clip.",
+    description: "This scene presents a Formula-style race car inside a workshop test rig. The support frame, wheels and surrounding equipment create a preparation space where the car can be checked before returning to the track.",
     facts: [
       { label: "Meshes", value: "149" },
       { label: "Textures", value: "3 embedded PNG maps" },
@@ -37,7 +42,7 @@ const modelCatalog = [
     category: "glTF scene",
     subtitle: "Pit room tyre change with its own animation",
     brief: "A pit stop scene showing a Formula car service area and tyre-change animation.",
-    description: "This scene focuses on a Formula One pit stop. It keeps its original textures and uses a separate AnimationMixer so its tyre-change animation can be triggered without affecting the other models.",
+    description: "This scene recreates a pit-room service bay. The car, tools and tyre-change area show the maintenance moment during a race, where fast repair work and wheel replacement are the centre of the scene.",
     facts: [
       { label: "Meshes", value: "133" },
       { label: "Textures", value: "2 embedded PNG maps" },
@@ -52,7 +57,7 @@ const modelCatalog = [
     category: "glTF scene",
     subtitle: "Display scene with two separate clips",
     brief: "A Formula car display scene with steering and disassembly animation clips.",
-    description: "This Formula showcase scene includes two separate glTF clips: a steering turn animation and a disassembly animation, each with its own play button.",
+    description: "This scene presents the Formula car as a showcase model in a display garage. It is designed for close inspection of the vehicle body, wheels, cockpit and mechanical parts from different viewing angles.",
     facts: [
       { label: "Meshes", value: "201" },
       { label: "Textures", value: "5 embedded PNG maps" },
@@ -69,11 +74,12 @@ const state = {
   selectedClipIndex: -1,
   paused: false,
   wireframe: false,
-  autoCamera: false,
+  autoCamera: true,
   showGrid: false,
   lightPreset: "focus",
   exposure: 0.9,
-  speed: 0.8
+  speed: 0.8,
+  backgroundMusicPlaying: false
 };
 
 const lightPresets = {
@@ -250,6 +256,7 @@ init();
 async function init() {
   initNavigation();
   initControls();
+  initBackgroundMusicControls();
   applyLightPreset();
   applyBrightness();
   updateLightButtons();
@@ -272,7 +279,7 @@ function initNavigation() {
     button.addEventListener("click", () => showPage(button.dataset.section));
   });
   const initial = location.hash.slice(1);
-  showPage(["studio", "about"].includes(initial) ? initial : "studio");
+  showPage(["home", "studio", "about"].includes(initial) ? initial : "home");
 }
 
 function showPage(id) {
@@ -280,12 +287,27 @@ function showPage(id) {
   const pages = [...document.querySelectorAll("[data-page]")];
   pages.forEach((page) => page.classList.toggle("is-visible", page.id === id));
   tabs.forEach((tab) => tab.classList.toggle("is-active", tab.dataset.section === id));
+  updateModelTabState();
   if (location.hash.slice(1) !== id) {
     history.replaceState(null, "", `#${id}`);
   }
 }
 
+function isStudioVisible() {
+  return document.querySelector("#studio")?.classList.contains("is-visible") || false;
+}
+
+function updateModelTabState() {
+  document.querySelectorAll("[data-model]").forEach((button) => {
+    button.classList.toggle("is-active", isStudioVisible() && button.dataset.model === state.selectedId);
+  });
+}
+
 function initControls() {
+  startExperienceButton?.addEventListener("click", () => {
+    enterExperience();
+  });
+
   document.querySelector("#animateToggle").addEventListener("click", (event) => {
     state.paused = !state.paused;
     event.currentTarget.setAttribute("aria-pressed", String(!state.paused));
@@ -354,6 +376,88 @@ function initControls() {
   });
 }
 
+async function enterExperience() {
+  showPage("studio");
+  playBackgroundMusic();
+  if (state.selectedId !== state.catalog[0].id) {
+    await selectModel(state.catalog[0].id);
+  } else {
+    focusCurrentModel();
+  }
+}
+
+function initBackgroundMusicControls() {
+  if (!backgroundMusic) {
+    return;
+  }
+  backgroundMusic.loop = true;
+  backgroundMusic.volume = Number(musicVolume?.value || 0.2);
+  backgroundMusic.addEventListener("pause", () => {
+    state.backgroundMusicPlaying = false;
+    updateMusicControls();
+  });
+  backgroundMusic.addEventListener("play", () => {
+    state.backgroundMusicPlaying = true;
+    updateMusicControls();
+  });
+  musicToggle?.addEventListener("click", () => {
+    if (backgroundMusic.paused) {
+      playBackgroundMusic();
+    } else {
+      pauseBackgroundMusic();
+    }
+  });
+  musicVolume?.addEventListener("input", (event) => {
+    backgroundMusic.volume = Number(event.currentTarget.value);
+    updateMusicControls();
+  });
+  updateMusicControls();
+}
+
+function playBackgroundMusic() {
+  if (!backgroundMusic) {
+    return;
+  }
+  backgroundMusic.loop = true;
+  const playRequest = backgroundMusic.play();
+  if (playRequest?.then) {
+    playRequest
+      .then(() => {
+        state.backgroundMusicPlaying = true;
+        updateMusicControls();
+      })
+      .catch(() => {
+        state.backgroundMusicPlaying = false;
+        updateMusicControls();
+        setStatus("Background music could not start. Use the music button after interacting with the page.");
+      });
+  }
+}
+
+function pauseBackgroundMusic() {
+  if (!backgroundMusic) {
+    return;
+  }
+  backgroundMusic.pause();
+  state.backgroundMusicPlaying = false;
+  updateMusicControls();
+}
+
+function updateMusicControls() {
+  if (musicToggle) {
+    const isPlaying = Boolean(backgroundMusic && !backgroundMusic.paused);
+    musicToggle.textContent = isPlaying ? "Pause music" : "Play music";
+    musicToggle.setAttribute("aria-pressed", String(isPlaying));
+    musicToggle.classList.toggle("is-active", isPlaying);
+  }
+  if (musicVolume && backgroundMusic) {
+    musicVolume.value = backgroundMusic.volume.toFixed(2);
+  }
+  if (musicVolumeValue && backgroundMusic) {
+    musicVolumeValue.textContent = `${Math.round(backgroundMusic.volume * 100)}%`;
+  }
+}
+
 function renderModelList() {
   modelList.replaceChildren(...state.catalog.map((model) => {
     const button = document.createElement("button");
@@ -363,6 +467,7 @@ function renderModelList() {
     button.textContent = model.shortTitle;
     button.addEventListener("click", () => {
       showPage("studio");
+      playBackgroundMusic();
       selectModel(model.id);
     });
     return button;
@@ -397,9 +502,7 @@ async function selectModel(id) {
 
   document.querySelector("#animateToggle").textContent = "Pause animation";
   document.querySelector("#animateToggle").setAttribute("aria-pressed", "true");
-  document.querySelectorAll("[data-model]").forEach((button) => {
-    button.classList.toggle("is-active", button.dataset.model === id);
-  });
+  updateModelTabState();
 
   updateObjectInfo(meta);
   renderAnimationButtons(runtime);
@@ -728,7 +831,9 @@ function updateObjectInfo(meta, clip = null) {
     objectTitle.textContent = meta.title;
   }
   if (objectDescription) {
-    objectDescription.textContent = "Scene lighting effect control";
+    objectDescription.textContent = clip
+      ? `${meta.description} Playing animation: ${state.selectedClip}.`
+      : meta.description;
   }
 }
 
