@@ -23,7 +23,7 @@
                 <h2 class="m-0">One</h2>
                 <h3 class="m-0">Cars</h3>
               </div>
-              <p class="brand-strapline m-0">Scene recreations of classic traditional racing cars</p>
+              <p class="brand-strapline m-0">Three workshop scenes for a Formula-style race car</p>
             </div>
           </div>
         </div>
@@ -150,9 +150,9 @@
             </div>
             <div class="card-body p-4">
               <p class="about-lead text-secondary">
-                This Formula One themed Web 3D application was built as an original interface around three local glTF
-                scenes. It combines HTML5, CSS3, Bootstrap and Three.js to present model loading, scene switching,
-                animation playback, lighting control, camera tools and synchronised audio cues in one responsive app.
+                I built this Formula One themed Web 3D app around three local glTF scenes: a test rig, a pit stop and a
+                showcase garage. The page uses HTML5, CSS3, Bootstrap and Three.js for model loading, scene switching,
+                animation playback, lighting control, camera tools and local audio cues.
               </p>
 
               <div class="about-evidence-strip" aria-label="Project technology summary">
@@ -178,6 +178,23 @@
                 >
                   https://github.com/Chobits-GIJ/3DApp_Assignment
                 </a>
+              </div>
+
+              <div class="detail-card border rounded p-3 mt-3">
+                <h3 class="h5">Statement of Originality and References</h3>
+                <p class="small text-secondary mb-2">
+                  The racing car scenes, web layout and JavaScript interactions were assembled for this assignment. I
+                  used Bootstrap for responsive layout, Three.js with GLTFLoader and OrbitControls for the browser 3D
+                  viewer, and Blockbench/Blender during the modelling and export workflow.
+                </p>
+                <ul class="small text-secondary mb-0 testing-list">
+                  <li>Three.js library and examples: <a class="reference-link" href="https://threejs.org/" target="_blank" rel="noopener">https://threejs.org/</a></li>
+                  <li>Bootstrap framework: <a class="reference-link" href="https://getbootstrap.com/" target="_blank" rel="noopener">https://getbootstrap.com/</a></li>
+                  <li>Blockbench glTF export workflow: <a class="reference-link" href="https://www.blockbench.net/" target="_blank" rel="noopener">https://www.blockbench.net/</a></li>
+                  <li>Formula 1 official website style reference: <a class="reference-link" href="https://www.formula1.com/" target="_blank" rel="noopener">https://www.formula1.com/</a></li>
+                  <li>Sound-effect source websites: <a class="reference-link" href="https://pixabay.com/sound-effects/" target="_blank" rel="noopener">Pixabay Sound Effects</a> and <a class="reference-link" href="https://mixkit.co/free-sound-effects/" target="_blank" rel="noopener">Mixkit Sound Effects</a></li>
+                  <li>Reference images are included only as visual research material on this About page.</li>
+                </ul>
               </div>
 
               <h3 class="h5 mt-4">Project Rationale</h3>
@@ -227,11 +244,10 @@
 
               <h3 class="h5 mt-4">Prototype References and Visual Development</h3>
               <p class="small text-secondary">
-                To evidence the work put into the web page, I added visual reference images and explanatory text rather
-                than only presenting the finished 3D viewer. These two Formula racing prototypes were used as visual
-                research for the app theme. They helped define the low racing silhouette, exposed wheels, rear wing,
-                cockpit position, sponsor-style colour blocking and track-focused presentation used across the interface
-                and the three 3D scenes.
+                I kept the two Formula reference images on this page so the design path is visible, not just the finished
+                viewer. They helped me settle the low racing silhouette, exposed wheels, rear wing, cockpit position,
+                sponsor-style colour blocking and track-focused presentation used across the interface and the three 3D
+                scenes.
               </p>
               <div class="row g-3 prototype-gallery">
                 <article class="col-md-6">
@@ -312,6 +328,7 @@
                 <h3 class="h5">How the references affected the final web page</h3>
                 <ul class="small text-secondary mb-0 testing-list">
                   <li>The Formula dashboard style was chosen to match the racing subject rather than a generic gallery.</li>
+                  <li>The official Formula 1 website was used as a style reference for the dark interface, red highlight colour and motorsport dashboard feeling.</li>
                   <li>The red highlight colour was taken from the red and white prototype and applied to active controls.</li>
                   <li>The darker blue/grey UI background was chosen to echo the track and engineering mood of the references.</li>
                   <li>The model viewer prioritises a low front-facing camera angle so the car shape reads clearly.</li>
@@ -360,8 +377,8 @@
                       steering and disassembly clips, giving the user more than one animation choice.
                     </p>
                     <ul class="small mb-0">
-                      <li>201 meshes</li>
-                      <li>5 embedded PNG texture maps</li>
+                      <li>317 meshes</li>
+                      <li>6 embedded PNG texture maps</li>
                       <li>Animations: Steering turn, car disassembly</li>
                     </ul>
                   </div>
@@ -412,10 +429,39 @@
                     <p class="small text-secondary mb-0">
                       The app includes Studio, Focus and Night lighting presets, with Focus used as the default browsing
                       mode. The presets change light intensity, colour, fog, background and exposure. Local audio files
-                      add pit wrench, engine and tyre friction cues to support the animations.
+                      add pit wrench, engine and tyre friction cues to support the animations. The background music file
+                      plays after the user starts the experience, while the shorter sound effects are triggered from the
+                      animation timeline so the audio matches the visual action.
                     </p>
                   </div>
                 </article>
+              </div>
+
+              <h3 class="h5 mt-4">Sound Effects and Source Websites</h3>
+              <div class="detail-card border rounded p-3">
+                <p class="small text-secondary">
+                  I added local MP3 files to make the app feel less like a silent model viewer. The sound design is kept
+                  simple and functional: each audio file supports a specific racing or workshop action.
+                </p>
+                <ul class="small text-secondary mb-0 testing-list">
+                  <li><code>background.mp3</code> creates the main atmosphere after Start Experience is clicked.</li>
+                  <li><code>garage_engine_hum.mp3</code> supports the Formula test rig animation.</li>
+                  <li><code>pit_impact_wrench.mp3</code> supports the pit stop tyre-change and disassembly cues.</li>
+                  <li><code>tire_rubber_squeak.mp3</code> supports the steering and tyre movement cues.</li>
+                  <li>Sound-effect source websites recorded for attribution: <a class="reference-link" href="https://pixabay.com/sound-effects/" target="_blank" rel="noopener">Pixabay Sound Effects</a> and <a class="reference-link" href="https://mixkit.co/free-sound-effects/" target="_blank" rel="noopener">Mixkit Sound Effects</a>.</li>
+                </ul>
+              </div>
+
+              <h3 class="h5 mt-4">Deeper Understanding Statement</h3>
+              <div class="detail-card border rounded p-3">
+                <p class="small text-secondary mb-0">
+                  I extended the lab-style model viewer into a small motorsport workflow: the same Formula car is shown
+                  in a test rig, a pit stop and a showcase garage, with each scene using its own glTF file and animation
+                  clips. The app links those scenes to JavaScript controls for clip playback, pause/stop behaviour,
+                  wireframe inspection, orbit camera movement, lighting presets, exposure adjustment and timed audio
+                  cues. This makes the interaction support the story of the model, rather than only rotating a single
+                  object on screen.
+                </p>
               </div>
 
               <h3 class="h5 mt-4">Blockbench and Blender Workflow</h3>
@@ -474,7 +520,7 @@
     <footer class="container-fluid footer">
       <div class="row">
         <div class="col-12 text-center copyright">
-          <small>Formula One Cars | Scene recreations of classic traditional racing cars</small>
+          <small>Formula One Cars | Three workshop scenes for a Formula-style race car</small>
         </div>
       </div>
     </footer>

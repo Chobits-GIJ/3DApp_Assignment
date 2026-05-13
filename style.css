@@ -822,7 +822,7 @@ input:focus-visible {
 
 .prototype-card.is-missing-image::before,
 .process-card.is-missing-image::before {
-  content: "Prototype image file pending";
+  content: "Prototype image unavailable";
   display: grid;
   place-items: center;
   width: 100%;
@@ -836,7 +836,7 @@ input:focus-visible {
 }
 
 .process-card.is-missing-image::before {
-  content: "Modelling process image pending";
+  content: "Modelling process image unavailable";
 }
 
 .prototype-card figcaption,
@@ -888,6 +888,20 @@ input:focus-visible {
   border-color: var(--hot);
   color: #fff;
   box-shadow: 0 10px 22px rgba(225, 6, 0, 0.22);
+}
+
+.reference-link {
+  color: #ffd8d6;
+  font-weight: 800;
+  text-decoration-color: rgba(255, 216, 214, 0.48);
+  text-underline-offset: 0.16em;
+  overflow-wrap: anywhere;
+}
+
+.reference-link:hover,
+.reference-link:focus {
+  color: #fff;
+  text-decoration-color: var(--hot);
 }
 
 .testing-list {

@@ -59,8 +59,8 @@ const modelCatalog = [
     brief: "A Formula car display scene with steering and disassembly animation clips.",
     description: "This scene presents the Formula car as a showcase model in a display garage. It is designed for close inspection of the vehicle body, wheels, cockpit and mechanical parts from different viewing angles.",
     facts: [
-      { label: "Meshes", value: "201" },
-      { label: "Textures", value: "5 embedded PNG maps" },
+      { label: "Meshes", value: "317" },
+      { label: "Textures", value: "6 embedded PNG maps" },
       { label: "Animations", value: "Steering turn, car disassembly" }
     ]
   }
